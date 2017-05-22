@@ -27,6 +27,3 @@ The player has to collect tree branches to give the animals to gnaw on to quiet 
 
 ![Mockup 1](Mockups/mockup1.png?raw=true "Markup1")
 ![Mockup 2](Mockups/mockup2.png?raw=true "Markup2")
-
-# Comments by Ming
-* This proposal is painful to read.  The game idea is fun but for what will you be using server-side for?  What will a RESTful API be used for?  Need more specifity.  Drag-and-drop is now available for HTML5.  How will you generate animal noises?  How do you tone down animal noises?  This need to be more thought out.

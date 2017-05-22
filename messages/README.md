@@ -1,8 +1,3 @@
-# README for Messages Lab
+# Messages
 
-###
-
-## Uses jquery to retrieve messages from heroku datastore in JSON format
-## Updates HTML to display messages
-
-### Took about 30 minutes to complete
+## This webpage uses JQuery to retreive messages from a Heroku datastore in JSON format, updating the HTML to display the messages. This lab took about 30 minutes to complete.

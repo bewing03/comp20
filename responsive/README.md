@@ -1,6 +1,4 @@
-Everything has been implemented correctly
+# Responsive
 
-No collaborations
-
-Time: 1 hour
+## This is a webpage that changes the portion of the GIF shown and changes the background color of the page as the dimensions of the browser changes. This assignment took about an hour to complete. 
 
