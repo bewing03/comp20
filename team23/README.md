@@ -9,11 +9,11 @@ The player has to collect tree branches to give the animals to gnaw on to quiet 
 ## List of all the features 
 * Front End Framework
     * Bootstrap will be used for the HTML, CSS, and Javascript for the webpages, allowing for both desktop and mobile versions depending on viewport size
-* Restful API
-    * We will be using Soundcloud to play the music playlists and animal sounds.
+* Javascript Game Engine
+    * We used Phaser.io to create the game.
 * Server-Side Data Persistance
-    * We will be using Node.js to run the web server that hosts the game
-    * We will be using MongoDB for data persistence to score high scores and usernames to create a global leaderboard
+    * We used Node.js to run the web server that hosts the game
+    * We used MongoDB for data persistence to store high scores to create a global leaderboard
 
 ## Data usage and collection
 * Program will prompt the user for a user name
@@ -21,7 +21,7 @@ The player has to collect tree branches to give the animals to gnaw on to quiet 
 * This data will be stored in a global leaderboar
 
 ## Algorithms and Special Techniques
-* Drag and drop using HTML5 or a Javascript game engine like Phaser.io
+* A #Javascript game engine like Phaser.io
 
 ## Mockups
 
