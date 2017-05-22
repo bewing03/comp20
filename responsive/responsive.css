@@ -1,0 +1,70 @@
+.ralphy {
+    width: 250px;
+    height: 186px;
+    background-image: url(ralphy.gif);
+}
+
+@media screen and (min-width: 1400px) {
+    body {
+        background-color: orange;
+    }
+    .ralphy {
+        background-image: url(ralphy.gif);
+        background-position: 0 0px;
+        
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width:1400px){
+    body {
+        background-color: yellow;
+    }
+    .ralphy {
+        background-image: url(ralphy.gif);
+        background-position: -250px 0px;
+        
+    }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+    body {
+        background-color: green;
+    }
+    .ralphy {
+        background-image: url(ralphy.gif);
+        background-position: 0 -186px;
+        
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width:1000px){
+    body {
+        background-color: blue;
+    }
+    .ralphy {
+        background-image: url(ralphy.gif);
+        background-position: -250px -186px;
+        
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 800px){
+    body {
+        background-color: indigo;
+    }
+    .ralphy {
+        background-image: url(ralphy.gif);
+        background-position: 0 -372px;
+        
+    }
+}
+
+@media screen and (min-width:0px) and (max-width: 600px){
+    body {
+        background-color: violet;
+    }
+    .ralphy {
+        background-image: url(ralphy.gif);
+        background-position: -250px -372px;
+    }
+}

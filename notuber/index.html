@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Not Uber</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body onload="getLocation()">
+    <h1>Not Uber</h1>
+    <div id="map"></div>
+    <div id="infowindow"></div>
+<script>
+    var map;
+    var infowindow;
+    var position = {lat: 0, lng: 0};
+    var driver_icon = {};
+    var passenger_icon = {};
+    var user = {lat: 0, lng: 0, username: "4aTtB30R"};
+    var contentString = "";
+    
+    function getLocation() {
+		if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(pos) {
+			user.lat = pos.coords.latitude;
+			user.lng = pos.coords.longitude;
+            initMap();
+            postLocation();
+            });
+        }
+        else {
+            alert("Geolocation not supported on browser");
+        }
+    }
+    
+    function postLocation() {
+        var xhr = new XMLHttpRequest;
+        var params = "username=4aTtB30R&lat=" + user.lat + "&lng=" + user.lng;
+        xhr.open("POST", "https://limitless-forest-92610.herokuapp.com/submit", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        
+        xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					elements = JSON.parse(xhr.responseText);
+                    var list_type = Object.keys(elements);
+                    if (list_type == "passengers") {
+                        addDriver(user);
+                        for (count = 0; count < elements.passengers.length; count++) {
+                            var element = elements.passengers[count];
+                            addPassenger(element);
+                        }
+                    }
+                    if (list_type == "vehicles") {
+                        addPassenger(user);
+                        for (count = 0; count < elements.vehicles.length; count++) {
+                            var element = elements.vehicles[count];
+                            addDriver(element);
+                        }
+                    }
+                }
+			};
+        xhr.send(params);
+    }
+    
+    function addDriver(element) {
+        position.lat = element.lat;
+        position.lng = element.lng;
+        var marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                icon: driver_icon,
+                title: element.username
+            });
+        marker.addListener('click', function() {
+            coords1 = [user.lng, user.lat];
+            coords2 = [element.lng, element.lat];
+            var distance = haversineDistance(coords1, coords2, true);
+            distance = distance.toFixed(2);
+            contentString = "<h2>" + marker.title + "</h2><h2>" + distance + " miles away</h2>";
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
+            //document.getElementById("infowindow").innerHTML = "<h2>" + marker.title + "</h2>";
+            //document.getElementById("infowindow").innerHTML += "<h2>" + distance + " miles away</h2>";
+        });
+        marker.setMap(map);
+    }
+    
+    function addPassenger(element) {
+        position.lat = element.lat;
+        position.lng = element.lng;
+        var marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                icon: passenger_icon,
+                title: element.username
+            });
+        marker.addListener('click', function() {
+            coords1 = [user.lng, user.lat];
+            coords2 = [element.lng, element.lat];
+            var distance = haversineDistance(coords1, coords2, true);
+            distance = distance.toFixed(2);
+            contentString = "<h2>" + marker.title + "</h2><h2>" + distance + " miles away</h2>";
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
+            //document.getElementById("infowindow").innerHTML = "<h2>" + marker.title + "</h2>";
+            //document.getElementById("infowindow").innerHTML += "<h2>" + distance + " miles away</h2>";
+        });
+        marker.setMap(map);
+        
+    }
+    
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: user,
+            zoom: 17
+        });
+        
+        infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        
+        driver_icon = {
+        url: "black_car.png", // url
+        scaledSize: new google.maps.Size(37.5, 14.25) // size
+        };
+    
+        passenger_icon = {
+        url: "pass_icon.png", // url
+        scaledSize: new google.maps.Size(25, 30) // size
+        };
+    }
+    
+    function haversineDistance(coords1, coords2, isMiles) {
+        function toRad(x) {
+        return x * Math.PI / 180;
+    }
+        var lon1 = coords1[0];
+        var lat1 = coords1[1];
+        var lon2 = coords2[0];
+        var lat2 = coords2[1];
+        var R = 6371; // km
+        var x1 = lat2 - lat1;
+        var dLat = toRad(x1);
+        var x2 = lon2 - lon1;
+        var dLon = toRad(x2)
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        if(isMiles) d /= 1.60934;
+
+        return d;
+    }
+</script>
+      
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD6gdbAjVxf38Y8KbNIsE-sQnBptDX5fE&callback=initMap"
+    async defer></script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+#map {
+    width: 90%;
+    height: 50%;
+    border-style: solid;
+    border-color: white;
+    padding-top: 100px;
+    margin: auto;
+}
+
+#infowindow {
+    color: white;
+    font-family: uber;
+    margin: auto;
+    text-align: center;
+}
+
+h1 {
+    font-family: uber;
+    color: white;
+    text-align: center;
+    font-size: 48px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+@font-face {
+    font-family: uber;
+    src: url(Arkhip_font.ttf);
+}
