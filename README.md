@@ -1,6 +1,6 @@
-#Ben Ewing's Tufts COMP20 - Web Programming REPO
+# Ben Ewing's Tufts COMP20 - Web Programming REPO
 
-##This repository contains all of my assignments that I completed in Web Programming at Tufts University
+## This repository contains all of my assignments that I completed in Web Programming at Tufts University
 
 * portfolio - showcases basic HTML and CSS
 * annotation - showcases AJAX html updating
