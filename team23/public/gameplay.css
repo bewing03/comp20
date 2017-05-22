@@ -1,0 +1,54 @@
+@font-face {
+    font-family: pixelated;
+    src: url(SFPixelate.ttf);
+}
+
+#game {
+    margin: auto;
+    width: 590px;
+    height: 504px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 42px;
+}
+
+h2 {
+    text-align:center;
+        display:inherit;
+
+}
+
+ol {
+    text-align: center;
+    display:inherit;
+    font-size: 30px;
+
+}
+li {
+    display:inherit;
+
+}
+html,
+body {
+    height: 100%;
+    background-image: url(images/animals.png);
+    background-size: cover;
+    font-family: pixelated;
+    color: white;
+
+}
+
+a {
+    color: white;
+    text-align:center;
+    display:inherit;
+    padding: 10px 10px;
+
+}
+
+a:hover {
+
+    color:hotpink;
+}

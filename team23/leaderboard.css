@@ -1,0 +1,25 @@
+@font-face {
+    font-family: pixelated;
+    src: url(SFPixelate.ttf);
+}
+
+html,
+body {
+    height: 100%;
+    background-image: url(images/animals.png);
+    background-size: cover;
+    font-family: pixelated;
+    color: white;
+}
+
+a {
+    color: white;
+    text-align:center;
+    display:inherit;
+    padding: 10px 10px;
+
+}
+
+a:hover {
+    color:hotpink;
+}

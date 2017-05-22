@@ -1,0 +1,196 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Loud Farm</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <link href="gameplay.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Loud Farm</h1>
+    <a id="gameplay" class="nav-link" href="scores.html">Leaderboard</a>
+    <a id="gameplay2" class="nav-link" href="gameplay.html"> Play Again! </a>
+
+    <div id="game"></div>
+    
+<script type="text/javascript">
+var game = new Phaser.Game(590, 504, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+
+var playing = true;
+
+function preload() {
+    game.load.audio('chickenSound', 'sounds/chicken.mp3');
+    game.load.audio('cowSound', 'sounds/cow.mp3');
+    game.load.audio('horseSound', 'sounds/horse.mp3');
+    game.load.audio('frogSound', 'sounds/frog.mp3');
+    
+    game.load.image('sky', 'images/background.png');
+    game.load.image('ground', 'images/ground.png');
+    game.load.image('bale1', 'images/bale1.png');
+    game.load.image('bale2', 'images/bale2.gif');
+    game.load.image('mound', 'images/mound.png');
+    game.load.image('tractor', 'images/tract.png');
+    
+    game.load.image('cow', 'images/cow.png');
+    game.load.image('frog', 'images/frog.png');
+    game.load.image('pig', 'images/pigimg.png');
+    game.load.image('chick', 'images/chick.png');
+    game.load.image('cow2', 'images/cow2.png');
+    game.load.image('deer', 'images/deer.png');
+    game.load.image('goat', 'images/goat.png');
+    game.load.image('goose', 'images/goose.png');
+    game.load.image('horse', 'images/horse.png');
+    game.load.image('pig2', 'images/pig.png');
+    game.load.image('raccoon', 'images/raccoon2.png');
+    
+    game.load.image('buttonleft', 'images/left.png');
+    game.load.image('buttonright', 'images/right.png');
+    game.load.image('buttonjump', 'images/up.png');
+    game.load.spritesheet('farmer', 'images/FarmerLogger.png', 48, 48, 8);
+}
+    
+//var chickenSound;
+//var cowSound;
+
+var sounds = [4];    
+    
+var animals = ['cow', 'frog', 'pig', 'chick', 'cow2', 'deer', 'goat', 'goose', 'horse', 'pig2', 'raccoon'];
+var player;
+var platforms;
+var cursors;
+var stars;
+var score = 0;
+var timer;
+var time = 60;
+var scoreText;
+var timerText;
+    
+function create() {
+    if (!game.device.desktop){
+     desktop();
+        return;
+    }
+    
+    timer = game.time.create(false);
+    timer.loop(1000, updateTimer, this);
+    timer.start(); 
+    
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.add.sprite(0, 0, 'sky');
+    
+    sounds[0] = game.add.audio('chickenSound');
+    sounds[1] = game.add.audio('cowSound');
+    sounds[2] = game.add.audio('horseSound');
+    sounds[3] = game.add.audio('frogSound');
+
+    platforms = game.add.group();
+    platforms.enableBody = true;
+    var ground = platforms.create(0, game.world.height - 1, 'ground');
+    ground.scale.setTo(2, 2);
+    ground.body.immovable = true;
+    var ledge = platforms.create(350, 350, 'bale1');
+    ledge.scale.setTo(.3, .3);
+    ledge.body.immovable = true;
+    ledge = platforms.create(200, 350, 'bale2');
+    ledge.scale.setTo(.1, .1);
+    ledge.body.immovable = true;
+    
+    ledge = platforms.create(100, 450, 'mound');
+    ledge.scale.setTo(.1, .1);
+    ledge.body.immovable = true;
+    
+    ledge = platforms.create(240, 200, 'tractor');
+    ledge.scale.setTo(.1, .1);
+    ledge.body.immovable = true;
+    player = game.add.sprite(32, game.world.height - 150, 'farmer');
+    game.physics.arcade.enable(player);
+    player.scale.setTo(1,1);
+    player.body.bounce.y = 0.2;
+    player.body.gravity.y = 300;
+    player.body.collideWorldBounds = true;
+    player.animations.add('left', [0, 1, 2, 3], 10, true);
+    player.animations.add('right', [4, 5, 6, 7], 10, true);
+    stars = game.add.group();
+    stars.enableBody = true;
+    for (var i = 0; i < 1; i++)    {
+        var star = stars.create(getRandomIntInclusive(0, 504 - 50), getRandomIntInclusive(150, game.world.height - 50), randomAnimal());
+        star.scale.setTo(.3, .3);
+    }
+    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    timerText = game.add.text(450, 16, 'time: 1:00', { fontSize: '32px', fill: '#000' });
+    cursors = game.input.keyboard.createCursorKeys();
+}
+function update() {
+    if (time == 0 && playing == true) {
+        endGame();
+        playing = false;
+
+    }
+    
+    var hitPlatform = game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.collide(stars, platforms);
+    game.physics.arcade.overlap(player, stars, collectStar, null, this);
+    player.body.velocity.x = 0;
+    if (cursors.left.isDown) {
+        player.body.velocity.x = -150;
+        player.animations.play('left');
+    }
+    else if (cursors.right.isDown) {
+        player.body.velocity.x = 150;
+        player.animations.play('right');
+    }
+    else {
+        player.animations.stop();
+        player.frame = 1;
+    }
+    
+    if (cursors.up.isDown && player.body.touching.down && hitPlatform) {
+        player.body.velocity.y = -350;
+    } 
+}
+    
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function randomAnimal() {
+    return animals[getRandomIntInclusive(0, 10)];
+}
+function randomSound() {
+    sounds[getRandomIntInclusive(0, 3)].play();
+}
+function collectStar (player, star) {
+    star.kill();
+    star = stars.create(getRandomIntInclusive(0, 504 - 50), getRandomIntInclusive(150, game.world.height - 50), randomAnimal());
+    randomSound();
+    star.scale.setTo(.3, .3);
+    score += 10;
+    scoreText.text = 'Score: ' + score;
+}
+    function desktop(){
+        document.getElementById("game").innerHTML = "We at the Loud Farm apologize, but this game is only available on a desktop computer :/";
+    return;
+        
+    }
+function updateTimer() {
+    time -= 1;
+    timerText.text = 'Time: ' + time;
+}
+    
+function endGame() {
+    var xhr = new XMLHttpRequest();
+    var url = "https://loud-farm.herokuapp.com/submit";
+    var username = username;
+    var params = 'highscore='+score;
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.send(params);
+    document.getElementById("game").innerHTML = "Game Over! Your final score was " + score;
+    return;
+}
+
+</script>
+</body>
+</html>

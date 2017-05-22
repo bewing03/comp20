@@ -1,0 +1,85 @@
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #111111;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;   
+}
+
+.nav {
+    float: left;
+}
+
+.nav a {
+    display: block;
+    font-family: existence;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.nav a.active {
+    color: #3498db;
+}
+
+.nav a:hover:not(.active) {
+    background-color: #3498db;
+}
+
+
+@font-face {
+    font-family: graffiti;
+    src: url(graffiti.ttf);
+}
+
+@font-face {
+    font-family: existence;
+    src: url(Existence-Light.ttf);
+}
+
+h1 {
+    font-family: graffiti;
+    text-align: center;
+    font-size: 100px;
+    margin: 10px;
+}
+
+#main {
+    display: block;
+    margin: auto;
+}
+
+body {
+    background-color:  #ecf0f1;
+}
+
+p {
+    text-align: center;
+}
+
+#bio {
+    font-size: 20px;
+    text-align: center;
+    font-family: existence;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+.container {
+    border-bottom-style: solid;
+    border-color: #111111;
+    display: flex;
+    font-family: existence;
+    overflow: hidden;
+    text-align: left;
+    background-color: white;
+    color: #111111;
+    justify-content: space-between;
+    padding: 30px;
+    align-items: center;
+}

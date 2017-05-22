@@ -1,0 +1,19 @@
+body {
+     background-image: url("animals.png");
+ }
+
+table {
+	background-color: white;
+}
+
+h2 {
+	color: white;
+	text-align: center;
+	background-color: black;
+}
+
+h4 {
+	color: white;
+	text-align: center;
+	background-color: black;
+}
