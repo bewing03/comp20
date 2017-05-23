@@ -2,6 +2,8 @@
     display: block;
     margin: 0px auto;
     padding: 0px;
+    width: 50%;
+    height: 50%;
 }
 
 #title, #lyrics {
