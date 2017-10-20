@@ -9,4 +9,4 @@
 * messages - showcases JQuery
 * responsive - showcases basic responsive design
 * security - showcases a security test performed on a classmates web project
-* team23 - a group project that was the culmination knowledge learned in the class
+* team23 - a group project that was the culmination of knowledge learned in the class
